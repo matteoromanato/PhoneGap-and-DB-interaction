@@ -1,0 +1,72 @@
+<html>
+<head>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	<meta charset="UTF-8">
+	<title>registrati</title>
+</head>	
+<body>
+	
+	<h2 align="center">LOGIN</h2>
+	<br>
+	<hr>
+		<form name='modulo' >
+			<table border='0'>
+					<tr> 
+						<td><input type='text' name='email' id='email' placeholder="inserisci e-mail" ></td><br>
+					<tr>
+						<td><input type='password' name='password' id='password' placeholder="inserisci password" ></td><br>
+					
+			</table>
+			
+			<br>
+			<table border='0'>
+					<tr> 
+						<td><input type="button" id="bottone" name='bottone' value="login"></td><br>
+					<tr>
+						<td><input type="button" onclick="location.href='registrati.html'" value="registrati"/></td><br>
+					
+			</table>
+			<br>
+			<hr>
+			
+			
+			<div id="risultato">
+				<a href='home.html'>home</a>
+			</div>
+
+
+			<script type="text/javascript">
+				$(document).ready(function() {
+				
+				  $("#bottone").click(function(){
+						
+						
+						var email = $("#email").val();
+						var password = $("#password").val();
+						
+						
+
+						$.ajax({
+						  type: "POST",
+						  url: "http://provapostcompleta.altervista.org/final/login.php",
+						  data: "email=" + email + "&password=" + password , 
+						  dataType: "html",
+						  success: function(msg)
+						  {
+							$("#risultato").html(msg);
+						  },
+						  error: function()
+						  {
+							alert("Chiamata fallita per controllare la registrazione, si prega di riprovare...");
+						  }
+						  
+						});
+				  });
+				  
+				});
+			</script>
+		
+			
+		</form>
+	</body>
+</html>

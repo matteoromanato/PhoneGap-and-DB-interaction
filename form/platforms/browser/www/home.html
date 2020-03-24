@@ -1,0 +1,59 @@
+<html>
+<head>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	<meta charset="UTF-8">
+	<title>home</title>
+</head>	
+<body>
+	
+	<h2 align="center">HOME</h2>
+	<br>
+	<hr>
+		<form name='modulo' >
+			<table border='0'>
+					<tr> 
+						<td><input type="button" onclick="location.href='form.html'" value="compila questionario"/></td><br>
+					<tr>
+						<td><br><br><br></td>
+						
+					<tr>
+						<td><input type='text' name='cod' id='cod' placeholder="inserire il tuo codice "></td><br>
+						<td><input type="button" id="bottone" name='bottone' value="visualizza risposte precedenti"></td><br>
+					
+			</table>
+			<br>
+			<hr>
+			<div id="risultato">
+				
+			</div>
+			
+			<script type="text/javascript">
+				$(document).ready(function() {
+				
+				  $("#bottone").click(function(){
+						
+						var cod = $("#cod").val();
+
+						$.ajax({
+						  type: "POST",
+						  url: "http://provapostcompleta.altervista.org/final/visualizza.php",
+						  data: "email=" + cod,  //passo il codice è scritto mail perchè nel php rilevo un dato POST chiamato email
+						  dataType: "html",
+						  success: function(msg)
+						  {
+							$("#risultato").html(msg);
+						  },
+						  error: function()
+						  {
+							alert("Chiamata fallita per visualizzare le vecchie risposte, si prega di riprovare...");
+						  }
+						  
+						});
+				  });
+				  
+				});
+			</script>
+			
+		</form>
+	</body>
+</html>

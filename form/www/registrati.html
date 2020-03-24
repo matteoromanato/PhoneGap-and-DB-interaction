@@ -1,0 +1,95 @@
+<html>
+<head>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	<meta charset="UTF-8">
+	<title>registrati</title>
+</head>	
+<body>
+	
+	<h2 align="center">form questionario feedback pazienti</h2>
+	<br>
+	<hr>
+		<form name='modulo' >
+			<table border='0'>
+					<tr> 
+						<td><label>nome </label></td>
+						<td><input type='text' name='nome' id='nome' ></td><br>
+					<tr>
+						<td><label>cognome  </label></td>
+						<td><input type='text' name='cognome' id='cognome' ></td><br>
+					<tr>
+						<td><label>e-mail  </label></td>
+						<td><input type='text' name='email' id='email' ></td><br>
+					<tr>
+						<td><label>password  </label></td>
+						<td><input type='password' name='password' id='password' ></td><br>
+					<tr>
+					<td><label>genere  </label></td>
+					<td>
+						<input type="radio" name="gender" id="gender" value="male"> Male
+						<input type="radio" name="gender" id="gender" value="female"> Female
+						<input type="radio" name="gender" id="gender" value="other"> Other
+					</td><br>
+				
+			</table>
+			
+			<br>
+			<input type="button" id="bottone" name='bottone' value="registrati">
+			<br>
+			<br>
+			<hr>
+			
+			
+			<div id="risultato">
+
+			</div>
+
+
+			<script type="text/javascript">
+				$(document).ready(function() {
+				
+				  $("#bottone").click(function(){
+						
+						var nome = $("#nome").val();
+						var cognome = $("#cognome").val();
+						var email = $("#email").val();
+						var password = $("#password").val();
+						/////////////////////////////
+						//per prendere il valore di un radio button
+						var radios = document.getElementsByName('gender');
+
+						for (var i = 0, length = radios.length; i < length; i++)
+						{
+						 if (radios[i].checked)
+						 {
+						  // do whatever you want with the checked radio
+						  var genere=radios[i].value;
+						 }
+						}
+						//////////////////////////////
+						
+
+						$.ajax({
+						  type: "POST",
+						  url: "http://provapostcompleta.altervista.org/final/registra_utente.php",
+						  data: "email=" + email + "&password=" + password + "&nome=" + nome + "&cognome=" + cognome + "&gender=" + genere  , 
+						  dataType: "html",
+						  success: function(msg)
+						  {
+							$("#risultato").html(msg);
+						  },
+						  error: function()
+						  {
+							alert("Chiamata fallita per controllare la registrazione, si prega di riprovare...");
+						  }
+						  
+						});
+				  });
+				  
+				});
+			</script>
+		
+			
+		</form>
+	</body>
+</html>

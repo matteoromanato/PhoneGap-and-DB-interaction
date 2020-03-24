@@ -1,0 +1,128 @@
+<html>
+<head>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	<meta charset="UTF-8">
+	<title>questionario</title>
+</head>	
+<body>
+	
+	<h2 align="center">form questionario feedback pazienti</h2>
+	<br>
+	<hr>
+	
+	
+		<form name='modulo' >
+			<table border='0'>
+					<tr>
+						<td><label><input type='text' id='codice' name='codice' placeholder='inserisci il tuo codice'> </label></td>
+					<tr>
+						<td><label>domande(male=1, ottimo=5) </label></td>
+					<tr> 
+						<td><label>domanda1   </label></td>
+						<td>
+							<input type="radio" name="d1" id="d1" value="1"> 1
+							<input type="radio" name="d1" id="d1" value="2"> 2
+							<input type="radio" name="d1" id="d1" value="3"> 3
+							<input type="radio" name="d1" id="d1" value="4"> 4
+							<input type="radio" name="d1" id="d1" value="5"> 5
+							<br>
+						</td>
+					<tr>
+						<td><label>domanda2   </label></td>
+						<td>
+							<input type="radio" name="d2" id="d2" value="1"> 1
+							<input type="radio" name="d2" id="d2" value="2"> 2
+							<input type="radio" name="d2" id="d2" value="3"> 3
+							<input type="radio" name="d2" id="d2" value="4"> 4
+							<input type="radio" name="d2" id="d2" value="5"> 5
+							<br>
+						</td>
+					<tr>
+						<td><label>domanda3  </label></td>
+						<td>
+							<input type="radio" name="d3" id="d3" value="1"> 1
+							<input type="radio" name="d3" id="d3" value="2"> 2
+							<input type="radio" name="d3" id="d3" value="3"> 3
+							<input type="radio" name="d3" id="d3" value="4"> 4
+							<input type="radio" name="d3" id="d3" value="5"> 5
+							<br>
+						</td>
+					<tr>
+						<td><label>domanda4   </label></td>
+						<td>
+							<input type="radio" name="d4" id="d4" value="1"> 1
+							<input type="radio" name="d4" id="d4" value="2"> 2
+							<input type="radio" name="d4" id="d4" value="3"> 3
+							<input type="radio" name="d4" id="d4" value="4"> 4
+							<input type="radio" name="d4" id="d4" value="5"> 5
+							<br>
+						</td>
+					<tr>
+						<td><label>domanda5  </label></td>
+						<td>
+							<input type="radio" name="d5" id="d5" value="1"> 1
+							<input type="radio" name="d5" id="d5" value="2"> 2
+							<input type="radio" name="d5" id="d5" value="3"> 3
+							<input type="radio" name="d5" id="d5" value="4"> 4
+							<input type="radio" name="d5" id="d5" value="5"> 5
+							<br>
+						</td>
+			</table>
+				
+			<hr>
+			
+			<br>
+			<input type="button" id="bottone" value="Invia i dati">
+			<br>
+			
+			
+			<div id="risultato">
+				
+			</div>
+
+
+			<script type="text/javascript">
+				$(document).ready(function() {
+				
+				  $("#bottone").click(function(){
+				  
+						var d1 = $('input[name="d1"]:checked').val();
+						var d2 = $('input[name="d2"]:checked').val();
+						var d3 = $('input[name="d3"]:checked').val();
+						var d4 = $('input[name="d4"]:checked').val();
+						var d5 = $('input[name="d5"]:checked').val();
+						
+						var codice = $("#codice").val();
+						
+						//calcolo della data
+						var data = new Date();
+						var Hh, Mm, Ss;
+						Hh = data.getDate() + "/";
+						Mm = data.getMonth() + "/";
+						Ss = data.getFullYear(); 
+						datatext = Hh + Mm + Ss;
+						
+						$.ajax({
+						  type: "POST",
+						  url: "http://provapostcompleta.altervista.org/final/carica_dati.php",
+						  data: "d1=" + d1 + "&d2=" + d2 + "&d3=" + d3 + "&d4=" + d4 + "&d5=" + d5 + "&data=" + datatext + "&codice=" + codice, 
+						  dataType: "html",
+						  success: function(msg)
+						  {
+							$("#risultato").html(msg);
+						  },
+						  error: function()
+						  {
+							alert("Chiamata fallita, si prega di riprovare...");
+						  }
+						  
+						});
+				  });
+				  
+				});
+			</script>
+		
+			
+		</form>
+	</body>
+</html>
